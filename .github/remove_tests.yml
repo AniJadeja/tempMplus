@@ -1,0 +1,21 @@
+name: Remove Tests from production
+
+on:
+  pull_request:
+    branches:
+      - prod
+
+jobs:
+  remove_tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Remove __tests__ directories
+        run: |
+          find . -type d -name "__tests__" -exec rm -rf {} +
+          git add -A
+          git commit -m "Remove __tests__ directories from master branch" || true
+          git push
