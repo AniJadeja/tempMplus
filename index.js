@@ -21,6 +21,18 @@ require('module-alias/register');
 
 const { app } = require("@app");
 const { PORT } = require ("@config")
+const  authenticate  = require("./server/features/login/middlewares");
+const router = require("./server/features/login/Route");
+
+
+app.use('/auth', router);
+
+// Protected route example
+app.get('/protected', authenticate, (_, res) => {
+  res.json({ message: 'Access  granted' });
+});
+
+
 
 const req = {
     get: function(headerName) {
@@ -33,12 +45,13 @@ const req = {
 
 
 app.listen(PORT, () => {
-
+  //console.log(require('.server/features/login/controller'));
     // print the server url
     const hostname = req.get("host");
     const protocol = req.protocol;
     console.clear();
     console.log(`Server is running on ${protocol}://${hostname}`);
+
 
   
   });

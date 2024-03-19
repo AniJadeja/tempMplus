@@ -7,7 +7,6 @@
         "start": "node index.js",
         "dev": "nodemon index.js",
         "test": "ava"
-
     },
     "repository": {
         "type": "git",
@@ -30,6 +29,7 @@
         "dotenv": "^16.3.1",
         "express": "^4.18.2",
         "helmet": "^7.1.0",
+        "jsonwebtoken": "^9.0.2",
         "module-alias": "^2.2.3",
         "mongodb": "^6.3.0",
         "mongoose": "^8.1.0",
@@ -40,15 +40,8 @@
         "@config": "./server/config/",
         "@app": "./server/modules/app",
         "@cors": "./server/modules/cors",
-        "@helmet": "./server/modules/helmet"
-    },
-    "jest": {
-        "moduleNameMapper": {
-            "^@cors$": "<rootDir>/server/modules/cors",
-            "^@helmet$": "<rootDir>/server/modules/helmet",
-            "^@app$": "<rootDir>/server/modules/app",
-            "^@config$": "<rootDir>/server/config"
-        }
+        "@helmet": "./server/modules/helmet",
+        "@features": "./server/features"
     },
     "devDependencies": {
         "ava": "^6.1.2",
