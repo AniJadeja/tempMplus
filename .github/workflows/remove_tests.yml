@@ -13,9 +13,30 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Remove __tests__ directories
+      - name: Check if __tests__ directories exist in prod branch
+        id: check_tests
+        run: |
+          git checkout prod
+          if [ -d "__tests__" ]; then
+            echo "::set-output name=tests_exist::true"
+          else
+            echo "::set-output name=tests_exist::false"
+          fi
+
+      - name: Remove __tests__ directories from prod branch if they exist
+        if: steps.check_tests.outputs.tests_exist == 'true'
         run: |
           find . -type d -name "__tests__" -exec rm -rf {} +
           git add -A
-          git commit -m "Remove __tests__ directories from master branch" || true
+          git commit -m "Remove existing __tests__ directories from prod branch" || true
+          git push
+
+      - name: Checkout back to pull request branch
+        run: git checkout ${{ github.event.pull_request.head.ref }}
+
+      - name: Remove __tests__ directories from pull request branch
+        run: |
+          find . -type d -name "__tests__" -exec rm -rf {} +
+          git add -A
+          git commit -m "Remove __tests__ directories introduced in pull request" || true
           git push
