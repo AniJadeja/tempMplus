@@ -22,6 +22,7 @@ const app = express();
 
 // Server modules
 const cors  = require("@cors");
+const helmet = require("@helmet");
 
 
 // Middlewares
@@ -29,5 +30,6 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors); 
+app.use(helmet);
 
 module.exports = { app }
