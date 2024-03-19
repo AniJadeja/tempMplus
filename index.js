@@ -21,16 +21,7 @@ require('module-alias/register');
 
 const { app } = require("@app");
 const { PORT } = require ("@config")
-const  authenticate  = require("./server/features/login/middlewares");
-const router = require("./server/features/login/Route");
 
-
-app.use('/auth', router);
-
-// Protected route example
-app.get('/protected', authenticate, (_, res) => {
-  res.json({ message: 'Access  granted' });
-});
 
 
 
