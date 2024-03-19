@@ -4,7 +4,7 @@
     "description": "backend for the mplus application",
     "main": "./server.js",
     "scripts": {
-        "start": "node index.js",
+        "start": "npm index.js",
         "dev": "nodemon index.js",
         "test": "ava"
     },

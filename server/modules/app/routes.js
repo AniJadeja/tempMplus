@@ -19,7 +19,6 @@
 const { app } = require("./middlewares");
 const { pingEndPoint, authEndPoint } = require ("@config");
 const { authRouter } = require("@features/auth");
-//const  authenticate  = require("@features/login/middlewares");
 
 
 
