@@ -4,9 +4,10 @@
     "description": "backend for the mplus application",
     "main": "./server.js",
     "scripts": {
-        "test": "node index.js",
         "start": "node index.js",
-        "dev": "nodemon index.js"
+        "dev": "nodemon index.js",
+        "test": "ava"
+
     },
     "repository": {
         "type": "git",
@@ -40,5 +41,18 @@
         "@app": "./server/modules/app",
         "@cors": "./server/modules/cors",
         "@helmet": "./server/modules/helmet"
+    },
+    "jest": {
+        "moduleNameMapper": {
+            "^@cors$": "<rootDir>/server/modules/cors",
+            "^@helmet$": "<rootDir>/server/modules/helmet",
+            "^@app$": "<rootDir>/server/modules/app",
+            "^@config$": "<rootDir>/server/config"
+        }
+    },
+    "devDependencies": {
+        "ava": "^6.1.2",
+        "axios": "^1.6.8",
+        "jest": "^29.7.0"
     }
 }
