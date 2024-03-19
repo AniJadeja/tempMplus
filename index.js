@@ -1,5 +1,5 @@
 /*
-* server.js
+* index.js
 *
 * Copyright (C) 2024 Aniruddhsinh Jadeja - All Rights  Reserved
 * You may use and modify the code to support the needs of Mplus
@@ -16,13 +16,16 @@
 */
 
 require('dotenv').config();
-const { PORT, app } = require ("./server")
+require('module-alias/register');
+
+const { app } = require("@app");
+const { PORT } = require ("@config")
 
 const req = {
     get: function(headerName) {
       // return the value of the specified header
       console.log("headerName :",headerName)
-      return `local${headerName}:10000`;
+      return `local${headerName}: ${PORT}`;
     },
     protocol: "http"
   };
