@@ -36,3 +36,16 @@ test('responds with expected body', async t => {
     const response = await axios.get(pingUrl);
     t.deepEqual(response.data, { message: 'Mplus pinged..' });
 });
+
+
+test('user login success with valid credentials', async t => {
+    const response = await axios.post('http://localhost:10000/auth/login', {
+        email: 'test@example.com',
+        password: '123'
+    });
+    t.is(response.status, 200);
+    t.is(response.data.success, 'true');
+    t.is(response.data.message, 'Login successful');
+    t.truthy(response.data.data.token);
+}
+);
