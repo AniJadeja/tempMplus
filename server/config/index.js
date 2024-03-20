@@ -17,8 +17,8 @@
 
 
 // Importing the pingEndPoint from the endpoints.js file
-const { pingEP: pingEndPoint } = require("./endpoints")
+const { pingEP: pingEndPoint, authEndPoint } = require("./endpoints")
 
 const PORT = process.env.PORT;
 
-module.exports = {pingEndPoint , PORT}
+module.exports = {authEndPoint, pingEndPoint , PORT}

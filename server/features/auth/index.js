@@ -1,5 +1,5 @@
 /*
-* server/modules/app/routes.js
+* server/features/auth/index.js
 *
 * Copyright (C) 2024 Anirudhdhsinh Jadeja - All Rights  Reserved
 * You may use and modify the code to support the needs of Mplus
@@ -16,22 +16,16 @@
 */
 
 // Libraries
-const { app } = require("./middlewares");
-const { pingEndPoint, authEndPoint } = require ("@config");
-const { authRouter } = require("@features/auth");
+const express = require('express');
+const authRouter = express.Router();
+
+const { loginRouter } = require('./login');
+const loginEP = process.env.LOGIN_END_POINT;
 
 
+authRouter.post(loginEP, (req, res, next) => {
+    console.log('Login endpoint called by authRouter');
+    next()
+}, loginRouter);
 
-app.use(authEndPoint, authRouter);
-
-// Protected route example
-// app.get('/protected', authenticate, (_, res) => {
-//   res.json({ message: 'Access  granted' });
-// });
-
-app.use(pingEndPoint, (req,res)=>{
-    res.status(200).json({message:"Mplus pinged.."})
-});
-
-
-module.exports = { app } 
+module.exports = { authRouter };
