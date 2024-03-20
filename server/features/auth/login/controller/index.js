@@ -18,7 +18,8 @@
 // Libraries
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const { user } = require("../model/user");
+const { user } = require("../database/model");
+const { login } = require("../database/methods");
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -26,17 +27,10 @@ exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Check if the email exists
-    if (!user.email === email) {
-      throw new Error("Invalid email");
+    const status = await login(email, password);
+    if (!status) {
+      throw new Error("Invalid email or password");
     }
-
-    // Check if the password is correct
-    const isMatch = password === user.password;
-    if (!isMatch) {
-      throw new Error("Invalid password");
-    }
-
     // Generate JWT token
     const token = jwt.sign(
       {
