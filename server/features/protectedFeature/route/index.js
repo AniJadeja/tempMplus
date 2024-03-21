@@ -1,5 +1,5 @@
 /*
-* endpoints.js
+* /server/features/login/Route/index.js
 *
 * Copyright (C) 2024 Aniruddhsinh Jadeja - All Rights  Reserved
 * You may use and modify the code to support the needs of Mplus
@@ -15,14 +15,13 @@
 * @application MPlus
 */
 
+// Libraries
+const express = require('express');
+const { protected } = require('../controller');
+const protectedRouter = express.Router();
+const { verifyToken } = require('../middlewares');
 
 
-const pingEP = process.env.PING_END_POINT
-const authEndPoint = process.env.AUTH_END_POINT
-const loginEndPoint = process.env.LOGIN_END_POINT
+protectedRouter.post("/", verifyToken, (req, res) => protected(req, res));
 
-const loginEP = authEndPoint + loginEndPoint
-
-const protectedEP = process.env.PROTECTED_END_POINT
-
-module.exports = { pingEP, loginEP, authEndPoint, protectedEP}
+module.exports = { protectedRouter };

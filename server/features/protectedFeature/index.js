@@ -1,5 +1,5 @@
 /*
-* endpoints.js
+* /server/features/login/Route/index.js
 *
 * Copyright (C) 2024 Aniruddhsinh Jadeja - All Rights  Reserved
 * You may use and modify the code to support the needs of Mplus
@@ -16,13 +16,7 @@
 */
 
 
+// Libraries
+const { protectedRouter } = require('./route');
 
-const pingEP = process.env.PING_END_POINT
-const authEndPoint = process.env.AUTH_END_POINT
-const loginEndPoint = process.env.LOGIN_END_POINT
-
-const loginEP = authEndPoint + loginEndPoint
-
-const protectedEP = process.env.PROTECTED_END_POINT
-
-module.exports = { pingEP, loginEP, authEndPoint, protectedEP}
+module.exports = { protectedRouter };
