@@ -17,11 +17,12 @@
 
 // Libraries
 const { app } = require("./middlewares");
-const { pingEndPoint, authEndPoint } = require ("@config");
+const { pingEndPoint, authEndPoint, protectedEndPoint } = require ("@config");
 const { authRouter } = require("@features/auth");
+const { protectedRouter } = require("@features/protectedFeature");
 
 
-
+app.use(protectedEndPoint, protectedRouter);
 app.use(authEndPoint, authRouter);
 
 // Protected route example
