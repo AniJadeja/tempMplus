@@ -37,17 +37,7 @@ const login = async (userEmail, password) => {
     if (!token) {
       throw new Error("Token generation failed");
     }
-    // Unix timestamp value
-    const unixTimestamp = 1710989257;
-
-    // Convert Unix timestamp to milliseconds
-    const milliseconds = unixTimestamp * 1000;
-
-    // Create a new Date object using the milliseconds
-    const date = new Date(milliseconds);
-
-    // Output the date and time in a readable format
-    console.log(date.toLocaleString());
+    
     const response = {
       success: "true",
       message: "Login successful",

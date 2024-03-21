@@ -23,7 +23,6 @@ const authController = require('../controller');
 const loginEP = process.env.LOGIN_END_POINT;
 
 loginRouter.post(loginEP, (req,res,next)=>{
-    console.log("Inside the login router");
     next();
 }, authController.login);
 
