@@ -23,4 +23,6 @@ const loginEndPoint = process.env.LOGIN_END_POINT
 
 const loginEP = authEndPoint + loginEndPoint
 
-module.exports = { pingEP, loginEP, authEndPoint}
+const protectedEP = process.env.PROTECTED_END_POINT
+
+module.exports = { pingEP, loginEP, authEndPoint, protectedEP}
