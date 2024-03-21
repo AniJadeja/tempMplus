@@ -4,9 +4,15 @@
     "description": "backend for the mplus application",
     "main": "./server.js",
     "scripts": {
-        "start": "npm index.js",
-        "dev": "nodemon index.js",
+        "start": "node ./index.js",
+        "dev": "nodemon ./index.js",
         "test": "ava"
+    },
+    "ava":{
+        "files": [
+            "server/**/*.test.js"
+        ],
+        "timeout": "1m"
     },
     "repository": {
         "type": "git",
@@ -33,7 +39,8 @@
         "module-alias": "^2.2.3",
         "mongodb": "^6.3.0",
         "mongoose": "^8.1.0",
-        "nodemon": "^3.0.3"
+        "nodemon": "^3.1.0",
+        "ava": "^6.0.0"
     },
     "_moduleAliases": {
         "@": "./server/modules/",
@@ -41,11 +48,11 @@
         "@app": "./server/modules/app",
         "@cors": "./server/modules/cors",
         "@helmet": "./server/modules/helmet",
-        "@features": "./server/features"
+        "@features": "./server/features",
+        "@services": "./server/services"
     },
     "devDependencies": {
-        "ava": "^6.1.2",
-        "axios": "^1.6.8",
-        "jest": "^29.7.0"
+
+        "axios": "^1.6.8"
     }
 }
