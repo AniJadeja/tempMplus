@@ -1,5 +1,5 @@
 /*
-* server/modules/__tests__/app.test.js
+* server/modules/__tests__/ping.test.js
 *
 * Copyright (C) 2024 Anirudhdhsinh Jadeja - All Rights  Reserved
 * You may use and modify the code to support the needs of Mplus
@@ -20,6 +20,7 @@ const test = require('ava');
 const axios = require('axios');
 const pingUrl = 'http://localhost:10000/ping';
 
+
 test('responds with 200', async t => {
     const response = await axios.get(pingUrl);
     t.is(response.status, 200);
@@ -37,15 +38,3 @@ test('responds with expected body', async t => {
     t.deepEqual(response.data, { message: 'Mplus pinged..' });
 });
 
-
-test('user login success with valid credentials', async t => {
-    const response = await axios.post('http://localhost:10000/auth/login', {
-        email: 'test@example.com',
-        password: '123'
-    });
-    t.is(response.status, 200);
-    t.is(response.data.success, 'true');
-    t.is(response.data.message, 'Login successful');
-    t.truthy(response.data.data.token);
-}
-);
