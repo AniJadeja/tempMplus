@@ -17,19 +17,33 @@
 
 // Libraries
 const jwt = require('jsonwebtoken');
+const utils = require('@utils');
+const ErrorX = utils.ErrorX;
 const JWT_SECRET = process.env.JWT_SECRET;
-const authenticate = (token) => {
+const authenticate = async (token) => {
   try {
+    // Verify the signature of the token and return the decoded payload
+    // Decoding token does not require the secret key
+    // That is why the signature is getting verified
     const decoded = jwt.verify(token, JWT_SECRET);
-    const user = decoded;
     if (decoded) {
-      return user;
+      // Check if the token is expired
+      const currentTime = Math.floor(Date.now() / 1000);
+      // if iat + 15 minutes >= current time, then the token is not expired
+      const isExpired = decoded.iat + 15 * 60 < currentTime;
+      console.log("isExpired: ", isExpired);
+      console.log("Decoded Token: ", decoded);
+      if (isExpired) throw new ErrorX(401, "Token is expired");
+      return decodedToken;
     }
-    return null;
+    // If the token is not decoded, then throw an error
+    else throw new ErrorX(401, "Invalid token");
+    
   } catch (error) {
-    console.log("Invalid token : ", error.message);
-    throw new Error("Invalid token : ", error.message);
+    // If the token is invalid, then throw an error
+    throw new ErrorX(401, "Invalid token");
   }
 };
+
 
 module.exports = { authenticate };
