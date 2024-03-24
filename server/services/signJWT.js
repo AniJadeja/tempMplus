@@ -5,7 +5,7 @@ const signJWT = async (userData) => {
   try {
     const token = jwt.sign(
       {
-        user: userData,
+        user: userData
       },
       JWT_SECRET
     );
