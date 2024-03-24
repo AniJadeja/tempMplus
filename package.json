@@ -4,8 +4,8 @@
     "description": "backend for the mplus application",
     "main": "./server.js",
     "scripts": {
-        "start": "node ./index.js",
-        "dev": "nodemon ./index.js",
+        "start": "node index.js",
+        "dev": "nodemon index.js",
         "test": "ava"
     },
     "ava":{
@@ -49,7 +49,8 @@
         "@cors": "./server/modules/cors",
         "@helmet": "./server/modules/helmet",
         "@features": "./server/features",
-        "@services": "./server/services"
+        "@services": "./server/services",
+        "@utils": "./server/modules/utils"
     },
     "devDependencies": {
 
