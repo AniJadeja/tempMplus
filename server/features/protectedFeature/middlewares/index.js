@@ -17,24 +17,37 @@
 
 // Libraries
 const services = require("@services");
+const utils = require("@utils");
+const ErrorX = utils.ErrorX;
 
+
+/*
+* Verify the token and authenticate the user
+* @param {object} req - The request object
+*/
 const verifyToken = async (req, res, next) => {
   try {
-    
+    // Get the token from the header and throw an error if the token is not found
     const authorization  =  req.header('Authorization').replace('Bearer ', '');
-    if (!authorization) {
-      throw new Error("Token not found"); 
-    }
+    if (!authorization) throw new ErrorX(401,"Token not found"); 
+
+    // Authenticate the token and throw an error if the token is invalid
     const response = await services.authenticate(authorization);
-    if (!response) {
-      throw new Error("Invalid token");
-    }
+    if (!response) throw new ErrorX(401,"Invalid token");
+
+    // If the token is valid, then set the user data in the request object
     next();
   } catch (error) {
-    res.status(401).json({ error: error.message });
+
+    // If there is an error, then send the error response
+    return res.status(error.code).json({ error: error.message });
   }
 };
 
+
+/*
+* Export the functions
+*/
 module.exports = {
   verifyToken,
 };
