@@ -1,3 +1,2 @@
-const { ErrorX } = require('./error');
-
+const ErrorX = require('./error');
 module.exports = { ErrorX };
