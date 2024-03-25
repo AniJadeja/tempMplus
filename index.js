@@ -12,19 +12,20 @@
 * 
 * @originalAuthor Aniruddhsinh Jadeja
 * Version 1.0.0.0
-* @application MPlus
+* @application mplus-admin-server
 */
 
 // Libraries
 require('dotenv').config();
 require('module-alias/register');
 
+// Variables
 const { app } = require("@app");
-const { PORT } = require ("@config")
+//const { PORT } = require ("@config")
 
+const { PORT } = require("@config")
 
-
-
+// Request object to get the hostname and protocol
 const req = {
     get: function(headerName) {
       // return the value of the specified header
@@ -35,14 +36,12 @@ const req = {
   };
 
 
+// Start the server
 app.listen(PORT, () => {
-  //console.log(require('.server/features/login/controller'));
+  
     // print the server url
     const hostname = req.get("host");
     const protocol = req.protocol;
     console.clear();
-    console.log(`Server is running on ${protocol}://${hostname}`);
-
-
-  
-  });
+    console.log(`Server is running on ${protocol}://${hostname}`);  
+});
