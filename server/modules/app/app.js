@@ -40,5 +40,7 @@ app.use(pingEndPoint, (req,res)=>{
 
 
 
-
+/* 
+* Export the app
+*/
 module.exports = { app } 

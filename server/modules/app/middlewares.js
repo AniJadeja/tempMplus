@@ -32,4 +32,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors); 
 app.use(helmet);
 
+/* 
+* Export the app
+*/
 module.exports = { app }
