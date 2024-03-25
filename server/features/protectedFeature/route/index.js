@@ -21,7 +21,10 @@ const { protected } = require('../controller');
 const protectedRouter = express.Router();
 const { verifyToken } = require('../middlewares');
 
-
+// Routes
 protectedRouter.post("/", verifyToken, (req, res) => protected(req, res));
 
+/*
+* Export the router
+*/
 module.exports = { protectedRouter };

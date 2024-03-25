@@ -19,4 +19,7 @@
 // Libraries
 const { protectedRouter } = require('./route');
 
+/*
+* Export the router
+*/
 module.exports = { protectedRouter };

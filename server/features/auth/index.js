@@ -17,14 +17,19 @@
 
 // Libraries
 const express = require('express');
-const authRouter = express.Router();
-
-const { loginRouter } = require('./login');
-const loginEP = process.env.LOGIN_END_POINT;
+const router = express.Router();
 
 
-authRouter.post(loginEP, (req, res, next) => {
-    next()
+const { loginRouter } = require('./login/Route');
+const { loginEndPoint } = require('@config')
+
+// Router
+const authRouter = router.use(loginEndPoint, (req, res, next) => {
+    console.log("Middleware before login user");
+    next();
 }, loginRouter);
 
+/*
+* Export the router
+*/
 module.exports = { authRouter };

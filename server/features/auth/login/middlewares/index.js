@@ -18,15 +18,42 @@
 // Libraries
 const jwt = require('jsonwebtoken');
 
+
+//JWT_SECRET
+const { JWT_SECRET } = require('@config');
+
+const { ErrorX } = require("@utils");
+
+/*
+* Function authenticates the user by verifying the token
+* signature
+* @param {Object} req
+* @param {Object} res
+* @param {Function} next
+* @returns {Object} res
+*/
 const authenticate = (req, res, next) => {
+
+  // Get the token from the header
   const token = req.header('Authorization').replace('Bearer ', '');
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    // Verify the token
+    const decoded = jwt.verify(token, JWT_SECRET);
     req.user = decoded;
+
+    // If the token is valid, then call the next middleware
     next();
   } catch (error) {
-    res.status(401).json({ error: 'Please authenticate' });
+    (error instanceof ErrorX) 
+    ? res.status(error.code).json({ error: error.message })
+    // If the token is invalid, then send an error response
+    : res.status(500).json({ error: "Bad Request" });
   }
 };
 
+
+/*
+* Export the middleware
+*/
 module.exports = authenticate;

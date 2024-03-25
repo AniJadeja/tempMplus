@@ -38,9 +38,10 @@ const verifyToken = async (req, res, next) => {
     // If the token is valid, then set the user data in the request object
     next();
   } catch (error) {
-
+    (error instanceof ErrorX)
+    ? res.status(error.code).json({ error: error.message })
     // If there is an error, then send the error response
-    return res.status(error.code).json({ error: error.message });
+    : res.status(500).json({ error: "Bad Request" });
   }
 };
 
