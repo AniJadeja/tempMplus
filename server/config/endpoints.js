@@ -14,8 +14,6 @@
 * Version 1.0.0.0
 * @application MPlus
 */
-
-require('dotenv').config();
 // Ping End Point to check the server status
 const pingEP = process.env.PING_END_POINT
 
