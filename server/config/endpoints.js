@@ -15,14 +15,21 @@
 * @application MPlus
 */
 
-
-
+require('dotenv').config();
+// Ping End Point to check the server status
 const pingEP = process.env.PING_END_POINT
+
+// Auth End Point to facilitate the authentication
 const authEndPoint = process.env.AUTH_END_POINT
+
+// Login End Point to facilitate the login
 const loginEndPoint = process.env.LOGIN_END_POINT
 
-const loginEP = authEndPoint + loginEndPoint
 
+// Protected End Point to facilitate the protected routes
 const protectedEP = process.env.PROTECTED_END_POINT
 
-module.exports = { pingEP, loginEP, authEndPoint, protectedEP}
+/*
+* Export the end points
+*/
+module.exports = { pingEP, loginEndPoint, authEndPoint, protectedEP}
