@@ -16,9 +16,16 @@
 */
 
 
-// Importing the pingEndPoint from the endpoints.js file
-const { pingEP: pingEndPoint, authEndPoint, protectedEP:protectedEndPoint} = require("./endpoints")
+// Importing the pingEndPoint, authEndPoint and protectedEndPoint from the endpoints.js file
+const { pingEP: pingEndPoint, authEndPoint, protectedEP:protectedEndPoint, loginEndPoint} = require("./endpoints")
 
+// Importing the PORT from the .env file
 const PORT = process.env.PORT;
 
-module.exports = {authEndPoint, protectedEndPoint, pingEndPoint, PORT}
+// Importing the JWT_SECRET from the secrets.js file
+const JWT_SECRET = process.env.JWT_SECRET
+
+/* 
+* Export the configuration variables
+*/
+module.exports = {authEndPoint, protectedEndPoint, pingEndPoint, PORT, JWT_SECRET, loginEndPoint}
