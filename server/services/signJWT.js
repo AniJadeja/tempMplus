@@ -17,7 +17,10 @@
 
 // Libraries
 const jwt = require('jsonwebtoken');
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = require('@config').JWT_SECRET;
+
+const utils = require('@utils');
+const ErrorX = utils.ErrorX;
 
 /*
 * Sign the JWT token
@@ -36,11 +39,13 @@ const signJWT = async (userData) => {
     // Return the token
     return token;
   } catch (error) {
-
+    if(error instanceof ErrorX) throw new ErrorX(error.code, error.message)
     // If there is an error, then throw an error
-    throw new Error(error.message);
+    else throw new Error(error.message);
   }
 };
 
-
+/*
+* Export the function
+*/
 module.exports = { signJWT } ;
