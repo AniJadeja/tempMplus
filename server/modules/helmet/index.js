@@ -15,9 +15,15 @@
 * @application mplus-admin-server
 */
 
-
+// Libraries
 const helmetLib = require('helmet');
 
+
+/*
+* Helmet middleware
+* it is a collection of 14 smaller middleware functions that set security-related HTTP headers
+* used to secure Express apps by setting various HTTP headers
+*/
 const helmet = helmetLib({
   contentSecurityPolicy: {
     directives: {
@@ -39,4 +45,7 @@ const helmet = helmetLib({
   noCache: true
 })
 
+/*
+* Export the module
+*/
 module.exports = helmet

@@ -34,5 +34,7 @@ app.use(pingEndPoint, (req,res)=>{
     res.status(200).json({message:"Mplus pinged.."})
 });
 
-
+/* 
+* Export the app
+*/
 module.exports = { app } 

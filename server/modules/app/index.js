@@ -18,6 +18,9 @@
 // Libraries
 const { app } = require('./routes');
 
+/*
+* Export the variables
+*/
 module.exports = {
     app
 }
