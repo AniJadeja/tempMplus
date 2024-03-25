@@ -12,14 +12,14 @@
 * 
 * @originalAuthor Aniruddhsinh Jadeja
 * Version 1.0.0.0
-* @application MPlus
+* @application mp-admin-server
 */
 
 // Libraries
 const jwt = require('jsonwebtoken');
 const utils = require('@utils');
+const JWT_SECRET = require('@config').JWT_SECRET;
 const ErrorX = utils.ErrorX;
-const JWT_SECRET = process.env.JWT_SECRET;
 const authenticate = async (token) => {
   try {
     // Verify the signature of the token and return the decoded payload
@@ -30,20 +30,22 @@ const authenticate = async (token) => {
       // Check if the token is expired
       const currentTime = Math.floor(Date.now() / 1000);
       // if iat + 15 minutes >= current time, then the token is not expired
-      const isExpired = decoded.iat + 15 * 60 < currentTime;
-      console.log("isExpired: ", isExpired);
-      console.log("Decoded Token: ", decoded);
-      if (isExpired) throw new ErrorX(401, "Token is expired");
+      const isExpired = decoded.iat + 0.5 * 60 < currentTime;
+      if (isExpired) { 
+        throw new ErrorX(401, "Token is expired"); }
       return decodedToken;
     }
     // If the token is not decoded, then throw an error
     else throw new ErrorX(401, "Invalid token");
     
   } catch (error) {
+    if(error instanceof ErrorX) throw new ErrorX(error.code, error.message)
     // If the token is invalid, then throw an error
-    throw new ErrorX(401, "Invalid token");
+    else throw new ErrorX(401, "Invalid token");
   }
 };
 
-
+/*
+* Export the function
+*/
 module.exports = { authenticate };
