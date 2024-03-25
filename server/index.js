@@ -19,6 +19,9 @@
 const { PORT } = require("@config")
 const { app  } = require("@app")
 
+/*
+* Export the variables
+*/
 module.exports = {
     PORT,
     app

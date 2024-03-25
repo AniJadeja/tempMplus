@@ -21,8 +21,6 @@ require('module-alias/register');
 
 // Variables
 const { app } = require("@app");
-//const { PORT } = require ("@config")
-
 const { PORT } = require("@config")
 
 // Request object to get the hostname and protocol
