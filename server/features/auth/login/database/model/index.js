@@ -15,8 +15,12 @@
  * @application MPlus
  */
 
+// Libraries
 const { user } = require("./user");
 
+/*
+* Export the model
+*/
 module.exports = {
     user,
     };

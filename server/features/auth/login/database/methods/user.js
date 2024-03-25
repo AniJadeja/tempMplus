@@ -15,10 +15,24 @@
  * @application MPlus
  */
 
+
+/*
+* This file contains the user login function 
+* The function is used to authenticate the user
+*/
+
+// Libraries
 const { user } = require("../model");
 
+// server modules
 const services = require("@services");
-
+const { ErrorX } = require("@utils");
+/*
+* The function is used to authenticate the user
+* @param {String} userEmail
+* @param {String} password
+* @returns {Object} response
+*/
 const login = async (userEmail, password) => {
   try {
     // Check if the email exists
@@ -38,6 +52,7 @@ const login = async (userEmail, password) => {
       throw new Error("Token generation failed");
     }
     
+    // Return the response
     const response = {
       success: "true",
       message: "Login successful",
@@ -47,10 +62,15 @@ const login = async (userEmail, password) => {
     };
     return response;
   } catch (error) {
-    return { error: error.message };
+    if(error instanceof ErrorX) throw new ErrorX(error.code, error.message)
+    // If there is an error, then throw an error
+    else return { error: error.message };
   }
 };
 
+/*
+* Export the function
+*/
 module.exports = {
   login,
 };

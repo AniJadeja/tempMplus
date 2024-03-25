@@ -15,7 +15,9 @@
  * @application MPlus
  */
 
-
+/*
+* export the success callback
+*/
 exports.protected = async (req, res) => {
   res.status(200);
   res.json({ message: "Successfully Authenticated.." });

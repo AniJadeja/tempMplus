@@ -17,13 +17,14 @@
 
 // Libraries
 const express = require('express');
-const loginRouter = express.Router();
-const authController = require('../controller');
+const router = express.Router();
+const {loginUser} = require('../controller');
 
-const loginEP = process.env.LOGIN_END_POINT;
+// Router
+const loginRouter = router.post("/", (req,res,)=> loginUser(req,res));
 
-loginRouter.post(loginEP, (req,res,next)=>{
-    next();
-}, authController.login);
 
+/*
+* Export the router
+*/
 module.exports = { loginRouter };

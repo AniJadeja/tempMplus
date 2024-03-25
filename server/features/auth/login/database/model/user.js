@@ -15,8 +15,12 @@
  * @application MPlus
  */
 
+// User model
 const user = { email: 'test@example.com', password: '123' }; 
 
+/*
+* Export the model
+*/
 module.exports = {
     user
     };
