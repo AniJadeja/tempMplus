@@ -22,7 +22,7 @@ const protectedRouter = express.Router();
 const { verifyToken } = require('../middlewares');
 
 // Routes
-protectedRouter.post("/", verifyToken, (req, res) => protected(req, res));
+protectedRouter.get("/", verifyToken, (req, res) => protected(req, res));
 
 /*
 * Export the router
