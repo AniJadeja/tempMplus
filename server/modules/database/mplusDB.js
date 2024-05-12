@@ -34,4 +34,4 @@ const dbConn = async () => {
 /*
 * Export the database connection
 */
-module.exports = dbConn;
+module.exports = dbConn; 
