@@ -28,7 +28,8 @@ const { pingEndPoint } = require ("@config");
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors); 
+app.use(cors);
+
 // Routes
 app.use("/", (req, res) => {
     res.status(200).json({ message: "Welcome to the home page" });

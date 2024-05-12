@@ -16,9 +16,9 @@
 */
 
 // Importing database connection from teh mplusDB.js file
-const dbConn = require("../database/mplusDB");
+const { dbConn } = require("../database/mplusDB");
 
 /*
 * Export the database connection
 */
-module.exports = dbConn;
+module.exports = { dbConn };
