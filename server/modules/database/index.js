@@ -15,23 +15,10 @@
 * @application MPlus
 */
 
-// Importing the mongoose module
-const mongoose = require('mongoose');
-
-
-/*
-* Function to connect to the database
-*/
-const dbConn = async () => {
-    try {
-        // Connect to the database
-       await mongoose.connect(process.env.DATABASE_URI);
-    } catch (error) {
-        console.error(error);
-    }
-}
+// Importing database connection from teh mplusDB.js file
+const { dbConn } = require("../database/mplusDB");
 
 /*
 * Export the database connection
 */
-module.exports = { dbConn }; 
+module.exports = { dbConn };

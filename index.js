@@ -18,28 +18,33 @@
 // Libraries
 require('dotenv').config();
 require('module-alias/register');
+const mongoose = require("mongoose");
 
 // Variables
 const { app } = require("@app");
 const { PORT } = require("@config")
+const { dbConn } = require("@database");
 
-// Request object to get the hostname and protocol
-const req = {
+// Connect to the database
+dbConn();
+
+mongoose.connection.once("open", () => {
+
+  const req = {
     get: function(headerName) {
       // return the value of the specified header
       console.log("headerName :",headerName)
-      return `local${headerName}: ${PORT}`;
+      return `local${headerName}:${PORT}`;
     },
     protocol: "http"
   };
 
+  app.listen(PORT, () => {
 
-// Start the server
-app.listen(PORT, () => {
-  
     // print the server url
     const hostname = req.get("host");
     const protocol = req.protocol;
     console.clear();
-    console.log(`Server is running on ${protocol}://${hostname}`);  
+    console.log(`Server is running on ${protocol}://${hostname}`);
+  });
 });
