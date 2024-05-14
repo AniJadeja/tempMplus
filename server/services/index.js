@@ -18,6 +18,7 @@
 // Libraries
 const { authenticate } = require('./authenticateJWT');
 const { signJWT } = require('./signJWT');
+const { getUID } = require('./generateUUID');
 
 
 /*
@@ -26,4 +27,5 @@ const { signJWT } = require('./signJWT');
 module.exports = {
     authenticate,
     signJWT,
+    getUID
     };
