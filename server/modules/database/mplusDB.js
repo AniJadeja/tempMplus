@@ -17,7 +17,7 @@
 
 // Importing the mongoose module
 const mongoose = require('mongoose');
-
+const { DATABASE_URI } = require("@config")
 
 /*
 * Function to connect to the database
@@ -25,7 +25,10 @@ const mongoose = require('mongoose');
 const dbConn = async () => {
     try {
         // Connect to the database
-       await mongoose.connect(process.env.DATABASE_URI);
+
+        await mongoose.connect(DATABASE_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+            .then(() => console.log('MongoDB Connected...'))
+            .catch(err => console.log(err));
     } catch (error) {
         console.error(error);
     }
