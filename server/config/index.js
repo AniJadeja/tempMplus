@@ -17,7 +17,7 @@
 
 
 // Importing the pingEndPoint, authEndPoint and protectedEndPoint from the endpoints.js file
-const { pingEP: pingEndPoint, authEndPoint, protectedEP:protectedEndPoint, loginEndPoint} = require("./endpoints")
+const { pingEP: pingEndPoint, authEndPoint, protectedEP:protectedEndPoint, loginEndPoint, signupEndPoint} = require("./endpoints")
 
 // Importing JWT_SECRET and DATABASE_URI from the secrets.js file
 const { db_uri, jwt } = require("./secrets")
@@ -34,4 +34,4 @@ const DATABASE_URI = db_uri;
 /* 
 * Export the configuration variables
 */
-module.exports = {authEndPoint, protectedEndPoint, pingEndPoint, PORT, JWT_SECRET, DATABASE_URI, loginEndPoint}
+module.exports = {authEndPoint, protectedEndPoint, pingEndPoint, PORT, JWT_SECRET, DATABASE_URI, loginEndPoint, signupEndPoint}
