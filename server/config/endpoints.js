@@ -23,6 +23,8 @@ const authEndPoint = process.env.AUTH_END_POINT
 // Login End Point to facilitate the login
 const loginEndPoint = process.env.LOGIN_END_POINT
 
+// signup End Point to facilitate the signup
+const signupEndPoint = process.env.SIGNUP_END_POINT
 
 // Protected End Point to facilitate the protected routes
 const protectedEP = process.env.PROTECTED_END_POINT
@@ -30,4 +32,4 @@ const protectedEP = process.env.PROTECTED_END_POINT
 /*
 * Export the end points
 */
-module.exports = { pingEP, loginEndPoint, authEndPoint, protectedEP}
+module.exports = { pingEP, loginEndPoint, authEndPoint, protectedEP, signupEndPoint}
