@@ -40,7 +40,8 @@
         "module-alias": "^2.2.3",
         "mongodb": "^6.3.0",
         "mongoose": "^8.3.4",
-        "nodemon": "^3.1.0"
+        "nodemon": "^3.1.0",
+        "uuidv7": "^1.0.0"
     },
     "_moduleAliases": {
         "@": "./server/modules/",
