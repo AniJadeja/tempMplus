@@ -23,12 +23,18 @@ const router = express.Router();
 const { loginRouter } = require('./login/Route');
 const { loginEndPoint } = require('@config')
 
+const { signupRouter } = require('./signup/Route');
+const { signupEndPoint } = require('@config')
+
+const { verifyEmailPattern } = require('./signup/middlewares'); 
+
 // Router
 const authRouter = router.use(loginEndPoint, (req, res, next) => {
     console.log("Middleware before login user");
     next();
 }, loginRouter);
 
+router.use(signupEndPoint, verifyEmailPattern ,signupRouter);
 /*
 * Export the router
 */
