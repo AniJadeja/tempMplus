@@ -22,12 +22,16 @@
 */
 
 // Libraries
-const User  = require("../model/user");
+const User  = require("@features/auth/database/model/user");
 const { UserModel } = require("../../model");
+const bcrypt = require("bcrypt");
 
 // server modules
-
 const { ErrorX } = require("@utils");
+
+// bcrypt configuration
+const saltRounds = 10;
+
 /*
 * The function is used to authenticate the user
 * @param {String} userEmail
@@ -40,7 +44,7 @@ const signup = async (userEmail, password) => {
     // Check if the email exists
     const userModel = new UserModel();
     userModel.email = userEmail;
-    userModel.password = password;
+    userModel.password = bcrypt.hashSync(password, saltRounds);
 
     console.log("signup => ",userModel);
 
