@@ -33,22 +33,44 @@ const { ErrorX } = require("@utils");
 * @returns {Object} res
 */
 const authenticate = (req, res, next) => {
-
-  // Get the token from the header
-  const token = req.header('Authorization').replace('Bearer ', '');
   try {
+    // Get the token from the header
+    const { email, password } = req.body;
 
-    // Verify the token
-    const decoded = jwt.verify(token, JWT_SECRET);
-    req.user = decoded;
+
+    // check if the email meets the email pattern
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+    if (!email) {
+      throw new ErrorX(400, "Email is required");
+    }
+
+    if (!emailPattern.test(email)) {
+      throw new ErrorX(400, "Invalid email");
+    }
+
+    // check if password is valid and provided
+
+    if (!password) {
+      throw new ErrorX(400, "Password is required");
+    }
+
+    // check if the password is valid
+
+    const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+
+    if (!passwordPattern.test(password)) {
+      throw new ErrorX(400, "Invalid password");
+    }
+
 
     // If the token is valid, then call the next middleware
     next();
   } catch (error) {
-    (error instanceof ErrorX) 
-    ? res.status(error.code).json({ error: error.message })
-    // If the token is invalid, then send an error response
-    : res.status(500).json({ error: "Bad Request" });
+    (error instanceof ErrorX)
+      ? res.status(error.code).json({ error: error.message })
+      // If the token is invalid, then send an error response
+      : res.status(500).json({ error: "Bad Request" });
   }
 };
 
