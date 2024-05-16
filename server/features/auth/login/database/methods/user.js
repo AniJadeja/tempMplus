@@ -22,11 +22,13 @@
 */
 
 // Libraries
-const { user } = require("../model");
+const User = require("@features/auth/database/model/user");
+const bcrypt = require("bcrypt");
 
 // server modules
 const services = require("@services");
 const { ErrorX } = require("@utils");
+
 /*
 * The function is used to authenticate the user
 * @param {String} userEmail
@@ -36,18 +38,26 @@ const { ErrorX } = require("@utils");
 const login = async (userEmail, password) => {
   try {
     // Check if the email exists
-    if (!user.email === userEmail) {
-      throw new Error("Invalid email");
+    const retrivedUser = await User.findOne ({ email: userEmail });
+    if (!retrivedUser) {
+      throw new Error("User not found");
     }
 
+    // check if the password entered by user matches the password in the database
+    const isMatch = bcrypt.compareSync(password, retrivedUser.password);
+
+    // if (!user.email === userEmail) {
+    //   throw new Error("Invalid email");
+    // }
+
     // Check if the password is correct
-    const isMatch = password === user.password;
+   /// const isMatch = password === user.password;
     if (!isMatch) {
       throw new Error("Invalid password");
     }
 
     // Generate JWT token
-    const token = await services.signJWT(user.email);
+    const token = await services.signJWT(retrivedUser.email);
     if (!token) {
       throw new Error("Token generation failed");
     }
