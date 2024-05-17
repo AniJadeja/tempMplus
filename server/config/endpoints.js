@@ -29,7 +29,10 @@ const signupEndPoint = process.env.SIGNUP_END_POINT
 // Protected End Point to facilitate the protected routes
 const protectedEP = process.env.PROTECTED_END_POINT
 
+// protected form End Point to facilitate the form CRUD operations
+const protectedFormEP = process.env.FORM_END_POINT
+
 /*
 * Export the end points
 */
-module.exports = { pingEP, loginEndPoint, authEndPoint, protectedEP, signupEndPoint}
+module.exports = { pingEP, loginEndPoint, authEndPoint, protectedEP, signupEndPoint, protectedFormEP}

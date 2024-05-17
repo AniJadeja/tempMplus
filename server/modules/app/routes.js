@@ -17,18 +17,16 @@
 
 // Libraries
 const { app } = require("./middlewares");
-const { pingEndPoint, authEndPoint, protectedEndPoint } = require ("@config");
+const { pingEndPoint, authEndPoint, protectedEndPoint, formEndPoint } = require ("@config");
 const { authRouter } = require("@features/auth");
 const { protectedRouter } = require("@features/protectedFeature");
+const { formRouter } = require("@features/form");
 
 
 app.use(protectedEndPoint, protectedRouter);
 app.use(authEndPoint, authRouter);
+app.use(formEndPoint, formRouter);
 
-// Protected route example
-// app.get('/protected', authenticate, (_, res) => {
-//   res.json({ message: 'Access  granted' });
-// });
 
 app.use(pingEndPoint, (req,res)=>{
     res.status(200).json({message:"Mplus pinged.."})
