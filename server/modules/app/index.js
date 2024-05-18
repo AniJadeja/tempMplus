@@ -9,7 +9,7 @@
 * Under  no  circumstances  the  code  should be distributed to
 * anyone who is not  a part  of Mplus  application  development
 * team.
-*
+*`
 * @originalAuthor Anirudhdhsinh Jadeja
 * Version 1.0.0.0
 * @application mplus-admin-server
@@ -17,10 +17,12 @@
 
 // Libraries
 const { app } = require('./routes');
+const { initiateDatabaseConnection } = require('./middlewares');
 
 /*
 * Export the variables
 */
 module.exports = {
-    app
+    app,
+    initiateDatabaseConnection
 }
