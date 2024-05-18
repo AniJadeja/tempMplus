@@ -21,6 +21,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// User Libraries
+const { getConnection } = require("@database");
+
+const { USERS_DATABASE } = require("@config");
+
 // User Schema
 const userSchema = new Schema({
     schemaVersion: { type: String, required: true },
@@ -37,11 +42,14 @@ const userSchema = new Schema({
     metadata:{type : Object, default: {}}
 });
 
-// User Model
-const User = mongoose.model('User', userSchema);
 
+module.exports = () => {
+    // connection
+    const UsersConnection = getConnection(USERS_DATABASE);
+   // console.log("UsersConnection:", UsersConnection);
 
-/*
-* Export the model
-*/
-module.exports = User;
+    // User Model
+    const User = UsersConnection.model('User', userSchema);
+
+    return User;
+};
