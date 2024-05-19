@@ -22,7 +22,7 @@
 */
 
 // Libraries
-const User  = require("@features/auth/database/model/user");
+const User  = require("@features/auth/database/model/user")();
 const { UserModel } = require("../../model");
 const bcrypt = require("bcrypt");
 
