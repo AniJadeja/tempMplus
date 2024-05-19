@@ -29,15 +29,10 @@ const connectDB = async () => {
   try {
     // Connect to the users database 
     await connectToDatabase(USERS_DATABASE_URI, USERS_DATABASE);
-  } catch (error) {
-    console.error("Users database connection failed...", error);
-  }
-
-  try {
     // Connect to the forms database
     await connectToDatabase(FORMS_DATABASE_URI, FORMS_DATABASE);
   } catch (error) {
-    console.error("Forms Database connection failed...", error);
+    console.error("Database connection failed...", error);
   }
 };
 
