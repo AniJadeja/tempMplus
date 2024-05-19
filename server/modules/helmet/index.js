@@ -34,7 +34,6 @@ const helmet = helmetLib({
   dnsPrefetchControl: { allow: true },
   expectCt: { enforce: true, maxAge: 30 },
   frameguard: { action: 'deny' },
-  hidePoweredBy: { setTo: 'PHP 4.2.0' },
   hsts: { maxAge: 60 },
   ieNoOpen: true,
   noSniff: true,

@@ -21,30 +21,45 @@ require('module-alias/register');
 const mongoose = require("mongoose");
 
 // Variables
-const { app } = require("@app");
+const { initiateDatabaseConnection, app } = require("@app");
 const { PORT } = require("@config")
-const { dbConn } = require("@database");
 
-// Connect to the database
-dbConn();
 
-mongoose.connection.once("open", () => {
+let UserModel;
 
-  const req = {
-    get: function(headerName) {
-      // return the value of the specified header
-      console.log("headerName :",headerName)
-      return `local${headerName}:${PORT}`;
-    },
-    protocol: "http"
-  };
-
-  app.listen(PORT, () => {
-
-    // print the server url
-    const hostname = req.get("host");
-    const protocol = req.protocol;
-    console.clear();
-    console.log(`Server is running on ${protocol}://${hostname}`);
-  });
+initiateDatabaseConnection().then((connectionStatus) => {
+  UserModel = require("@features/auth/database/model/user.js")();
+  if (!connectionStatus) {
+    console.error("server => index.js : Database connection failed...");
+    process.exit(1);
+  }
+  else {
+    const req = {
+      get: function(headerName) {
+        // return the value of the specified header
+        console.log("headerName :",headerName)
+        return `local${headerName}:${PORT}`;
+      },
+      protocol: "http"
+    };
+  
+    app.listen(PORT, async () => {
+  
+      // print the server url
+      const hostname = req.get("host");
+      const protocol = req.protocol;
+     // console.clear();
+      console.log(`Server is running on ${protocol}://${hostname}`);
+      try {
+        const users = await UserModel.find();
+        console.log("Users:", users);
+      } catch (err) {
+        console.error("Error fetching users:", err);
+      }
+    });
+  }
+  
 });
+
+
+

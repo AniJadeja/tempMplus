@@ -32,12 +32,10 @@ const connectToDatabase = async (uri, name) => {
     }
 
     const connection = await mongoose.createConnection(uri, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
     });
 
     connections[name] = connection;
-    console.log(`Connected to ${name} database`);
+   // console.log(`Connected to ${name} database`);
 
     return connection;
 };
