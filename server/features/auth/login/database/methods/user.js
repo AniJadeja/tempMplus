@@ -22,7 +22,7 @@
 */
 
 // Libraries
-const User = require("@features/auth/database/model/user");
+const User = require("@features/auth/database/model/user")();
 const bcrypt = require("bcrypt");
 
 // server modules
@@ -46,12 +46,6 @@ const login = async (userEmail, password) => {
     // check if the password entered by user matches the password in the database
     const isMatch = bcrypt.compareSync(password, retrivedUser.password);
 
-    // if (!user.email === userEmail) {
-    //   throw new Error("Invalid email");
-    // }
-
-    // Check if the password is correct
-   /// const isMatch = password === user.password;
     if (!isMatch) {
       throw new Error("Invalid password");
     }
