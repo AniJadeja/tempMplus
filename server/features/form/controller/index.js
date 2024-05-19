@@ -16,23 +16,62 @@
  */
 
 /*
-* export the createForm controller
-*/
+ * export the createForm controller
+ */
+
+const FormModel = require("../formModel/formModel");
+const { createForm } = require("../database/methods/form"); 
+
 const createForm = async (req, res) => {
-   res.status(200).send({ message: "Create Form reached.." });
-};
+  const {
+    schemaVersion,
+    formId,
+    formName,
+    formDescription,
+    formType,
+    formStatus,
+    formVersion,
+    formFields,
+    createdBy,
+    updatedBy,
+    metadata,
+  } = req.body;
 
+  const form = new FormModel(
+    schemaVersion,
+    formId,
+    formName,
+    formDescription,
+    formType,
+    formStatus,
+    formVersion,
+    formFields,
+    createdBy,
+    updatedBy,
+    metadata
+  );
 
-const getForm = async (req, res) => {
-    res.status(200).send({ message: "Get Form reached.." });
-    };
-
-const updateForm = async (req, res) => {
-    res.status(200).send({ message: "Update Form reached.." });
-    };
-
-const deleteForm = async (req, res) => {
-    res.status(200).send({ message: "Delete Form reached.." });
+  try {
+    const response = await createForm(form);
+    res.status(200).send(response);
+  }
+    catch (error) {
+        res.status(400).send({ error: error.message });
     }
 
-module.exports = { createForm, getForm, updateForm, deleteForm};
+ // res.status(200).send({ message: "Create Form reached.." });
+};
+
+const getForm = async (req, res) => {
+  res.status(200).send({ message: "Get Form reached.." });
+};
+
+const updateForm = async (req, res) => {
+  res.status(200).send({ message: "Update Form reached.." });
+};
+
+const deleteForm = async (req, res) => {
+  res.status(200).send({ message: "Delete Form reached.." });
+};
+
+module.exports = { createForm, getForm, updateForm, deleteForm };
