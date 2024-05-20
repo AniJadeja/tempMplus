@@ -20,7 +20,7 @@
 const getForm = require("@features/form/database/model/form");
 let Form;
 (async () => { Form = await getForm(); })();
-
+const { ErrorX } = require("@utils");
 /*
 * The function is used to create a new form
 * @param {Object} form
@@ -30,8 +30,8 @@ let Form;
   const createForm = async (form) => {
     try {
       // Check if the form exists
-      const form = await Form.findOne({ formName: formName });
-        if (form) throw new ErrorX(400, "Form already exists");
+      const isFormExist = await Form.findOne({ formName: form.formName });
+        if (isFormExist) throw new ErrorX(400, "Form already exists");
 
         // Create a new form
         const newForm = await Form.create(form);
@@ -39,8 +39,7 @@ let Form;
         if (!newForm) throw new ErrorX(400, "Form not created");
 
         // Check if the form was actually created
-        const existingForm = await Form.findOne({ formName:
-        formName });
+        const existingForm = await Form.findOne({ formName: form.formName });
         if (!existingForm) throw new ErrorX(400, "Form not created");
 
         // Return the response
@@ -48,13 +47,14 @@ let Form;
             success: "true",
             message: "Form created successfully"
         }
-
+        console.log("New Form created successfully : formName : ", form.formName)
         return response;
     }
     catch (error) {
-        if (error instanceof ErrorX) throw new ErrorX(error.code, error.message)
-        // If there is an error, then throw an error
-        else return { error: error.message };
+      console.error("Features => form => database => methods => createForm : error : ", error);
+      if (error instanceof ErrorX) throw new ErrorX(error.code, error.message);
+      // If there is an error, then throw an error
+      else return { error: error.message };
     }
 
 }
