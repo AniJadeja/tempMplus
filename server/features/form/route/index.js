@@ -17,12 +17,12 @@
 
 // Libraries
 const express = require('express');
-const { newForm, getForm } = require('../controller');
+const { newForm, getRequestedForm } = require('../controller');
 const formRouter = express.Router();
 const { formMiddleware } = require('../middlewares');
 
 // Routes
-formRouter.get("/", formMiddleware, (req, res) => getForm(req, res));
+formRouter.get("/", formMiddleware, (req, res) => getRequestedForm(req, res));
 formRouter.post("/", formMiddleware, (req, res) => newForm(req, res));
 formRouter.put("/", formMiddleware, (req, res) => updateForm(req, res));
 formRouter.delete("/", formMiddleware, (req, res) => deleteForm(req, res));

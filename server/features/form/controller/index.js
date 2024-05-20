@@ -20,7 +20,7 @@
  */
 
 const FormModel = require("../formModel/formModel");
-const { createForm } = require("../database/methods/form"); 
+const { createForm,getForm } = require("../database/methods/form"); 
 const ErrorX = require("@utils");
 
 const newForm = async (req, res) => {
@@ -65,8 +65,16 @@ const newForm = async (req, res) => {
  // res.status(200).send({ message: "Create Form reached.." });
 };
 
-const getForm = async (req, res) => {
-  res.status(200).send({ message: "Get Form reached.." });
+const getRequestedForm = async (req, res) => {
+  const { formName } = req.query;
+  try {
+    const response = await getForm(formName);
+    res.status(200).send(response);
+  } catch (error) {
+    if (error instanceof ErrorX) res.status(error.code).send({ error: error.message });
+    else
+    res.status(400).send({ error: error.message });
+  }
 };
 
 const updateForm = async (req, res) => {
@@ -77,4 +85,4 @@ const deleteForm = async (req, res) => {
   res.status(200).send({ message: "Delete Form reached.." });
 };
 
-module.exports = { newForm, getForm, updateForm, deleteForm };
+module.exports = { newForm, getRequestedForm, updateForm, deleteForm };

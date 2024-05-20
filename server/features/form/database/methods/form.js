@@ -17,50 +17,79 @@
 
 // Libraries
 
-const getForm = require("@features/form/database/model/form");
+const getFormModel = require("@features/form/database/model/form");
 let Form;
-(async () => { Form = await getForm(); })();
+(async () => {
+  Form = await getFormModel();
+})();
 const { ErrorX } = require("@utils");
 /*
-* The function is used to create a new form
-* @param {Object} form
-* @returns {Object} response
-*/
+ * The function is used to create a new form
+ * @param {Object} form
+ * @returns {Object} response
+ */
 
-  const createForm = async (form) => {
-    try {
-      // Check if the form exists
-      const isFormExist = await Form.findOne({ formName: form.formName });
-        if (isFormExist) throw new ErrorX(400, "Form already exists");
+const createForm = async (form) => {
+  try {
+    // Check if the form exists
+    const isFormExist = await Form.findOne({ formName: form.formName });
+    if (isFormExist) throw new ErrorX(400, "Form already exists");
 
-        // Create a new form
-        const newForm = await Form.create(form);
+    // Create a new form
+    const newForm = await Form.create(form);
 
-        if (!newForm) throw new ErrorX(400, "Form not created");
+    if (!newForm) throw new ErrorX(400, "Form not created");
 
-        // Check if the form was actually created
-        const existingForm = await Form.findOne({ formName: form.formName });
-        if (!existingForm) throw new ErrorX(400, "Form not created");
+    // Check if the form was actually created
+    const existingForm = await Form.findOne({ formName: form.formName });
+    if (!existingForm) throw new ErrorX(400, "Form not created");
 
-        // Return the response
-        const response = {
-            success: "true",
-            message: "Form created successfully"
-        }
-        console.log("New Form created successfully : formName : ", form.formName)
-        return response;
-    }
-    catch (error) {
-      console.error("Features => form => database => methods => createForm : error : ", error);
-      if (error instanceof ErrorX) throw new ErrorX(error.code, error.message);
-      // If there is an error, then throw an error
-      else return { error: error.message };
-    }
+    // Return the response
+    const response = {
+      success: "true",
+      message: "Form created successfully",
+    };
+    console.log("New Form created successfully : formName : ", form.formName);
+    return response;
+  } catch (error) {
+    console.error(
+      "Features => form => database => methods => createForm : error : ",
+      error
+    );
+    if (error instanceof ErrorX) throw new ErrorX(error.code, error.message);
+    // If there is an error, then throw an error
+    else return { error: error.message };
+  }
+};
 
-}
+const getForm = async (formName) => {
+  try {
+    // Check if the form exists
+    console.log("Finding form : ", formName);
+    const isFormExist = await Form.findOne({ formName: formName });
+    if (!isFormExist) throw new ErrorX(400, "Form does not exist");
 
+    // Return the response
+    const response = {
+      success: "true",
+      message: "Form found successfully",
+      form: isFormExist,
+    };
+    console.log("Form found successfully : formName : ", formName);
+    return response;
+  } catch (error) {
+    console.error(
+      "Features => form => database => methods => getForm : error : ",
+      error
+    );
+    if (error instanceof ErrorX) throw new ErrorX(error.code, error.message);
+    // If there is an error, then throw an error
+    else return { error: error.message };
+  }
+};
 
 // Export the functions
 module.exports = {
-    createForm,
+  createForm,
+  getForm,
 };
