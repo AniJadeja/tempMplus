@@ -21,6 +21,7 @@
 
 const FormModel = require("../formModel/formModel");
 const { createForm } = require("../database/methods/form"); 
+const ErrorX = require("@utils");
 
 const newForm = async (req, res) => {
   const {
@@ -56,6 +57,8 @@ const newForm = async (req, res) => {
     res.status(200).send(response);
   }
     catch (error) {
+        if (error instanceof ErrorX) res.status(error.code).send({ error: error.message });
+        else
         res.status(400).send({ error: error.message });
     }
 
