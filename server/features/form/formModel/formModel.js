@@ -42,3 +42,5 @@ class FormModel {
     this.metadata = metadata;
   }
 }
+
+module.exports = FormModel;
