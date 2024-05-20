@@ -22,7 +22,9 @@
 */
 
 // Libraries
-const User  = require("@features/auth/database/model/user")();
+const getUserModel  = require("@features/auth/database/model/user");
+let User ;
+(async () => { User = await getUserModel() })();
 const { UserModel } = require("../../model");
 const bcrypt = require("bcrypt");
 

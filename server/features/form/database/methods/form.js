@@ -16,7 +16,10 @@
  */
 
 // Libraries
-const Form = require("@features/form/database/model/form")();
+
+const getForm = require("@features/form/database/model/form");
+let Form;
+(async () => { Form = await getForm(); })();
 
 /*
 * The function is used to create a new form

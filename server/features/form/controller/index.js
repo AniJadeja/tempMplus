@@ -22,7 +22,7 @@
 const FormModel = require("../formModel/formModel");
 const { createForm } = require("../database/methods/form"); 
 
-const createForm = async (req, res) => {
+const newForm = async (req, res) => {
   const {
     schemaVersion,
     formId,
@@ -74,4 +74,4 @@ const deleteForm = async (req, res) => {
   res.status(200).send({ message: "Delete Form reached.." });
 };
 
-module.exports = { createForm, getForm, updateForm, deleteForm };
+module.exports = { newForm, getForm, updateForm, deleteForm };
