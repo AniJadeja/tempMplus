@@ -27,8 +27,8 @@ const { PORT } = require("@config")
 let UserModel;
 
 initiateDatabaseConnection().then((connectionStatus) => {
- const getUserModel = require("@features/auth/database/model/user.js");
-  (async () => { UserModel = await getUserModel(); })();
+// const getUserModel = require("@features/auth/database/model/user.js");
+ // (async () => { UserModel = await getUserModel(); })();
   if (!connectionStatus) {
     console.error("server => index.js : Database connection failed...");
     process.exit(1);
@@ -50,12 +50,12 @@ initiateDatabaseConnection().then((connectionStatus) => {
       const protocol = req.protocol;
      // console.clear();
       console.log(`Server is running on ${protocol}://${hostname}`);
-      try {
-        const users = await UserModel.find({});
-        console.log("Users:", users);
-      } catch (err) {
-        console.error("Error fetching users:", err);
-      }
+      // try {
+      //   const users = await UserModel.find({});
+      //   console.log("Users:", users);
+      // } catch (err) {
+      //   console.error("Error fetching users:", err);
+      // }
     });
   }
   

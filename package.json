@@ -2,7 +2,7 @@
     "name": "mplus-admin-server",
     "version": "1.0.0.0",
     "description": "backend for the mplus application",
-    "main": "./server.js",
+    "main": "./index.js",
     "scripts": {
         "start": "node index.js",
         "dev": "nodemon index.js",
