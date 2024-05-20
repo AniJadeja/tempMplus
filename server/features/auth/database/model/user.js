@@ -22,9 +22,15 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // User Libraries
-const { getConnection } = require("@database");
+// const { getConnection } = require("@database");
 
-const { USERS_DATABASE } = require("@config");
+// const { USERS_DATABASE } = require("@config");
+
+
+const { connectToDatabase, getConnection } = require("@database");
+const { USERS_DATABASE, USERS_DATABASE_URI } = require("@config");
+
+
 
 // User Schema
 const userSchema = new Schema({
@@ -43,12 +49,17 @@ const userSchema = new Schema({
 });
 
 
-module.exports = () => {
-    // connection
-    const UsersConnection = getConnection(USERS_DATABASE);
-   // console.log("UsersConnection:", UsersConnection);
 
-    // User Model
+module.exports = async () => {
+    // Ensure the database connection is established before getting the connection
+    await connectToDatabase(USERS_DATABASE_URI, USERS_DATABASE);
+
+    const UsersConnection = getConnection(USERS_DATABASE);
+
+    if (!UsersConnection) {
+        throw new Error('Failed to establish a connection to the USERS_DATABASE');
+    }
+
     const User = UsersConnection.model('User', userSchema);
 
     return User;

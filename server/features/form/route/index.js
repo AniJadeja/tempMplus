@@ -17,13 +17,13 @@
 
 // Libraries
 const express = require('express');
-const { createForm, getForm } = require('../controller');
+const { newForm, getForm } = require('../controller');
 const formRouter = express.Router();
 const { formMiddleware } = require('../middlewares');
 
 // Routes
 formRouter.get("/", formMiddleware, (req, res) => getForm(req, res));
-formRouter.post("/", formMiddleware, (req, res) => createForm(req, res));
+formRouter.post("/", formMiddleware, (req, res) => newForm(req, res));
 formRouter.put("/", formMiddleware, (req, res) => updateForm(req, res));
 formRouter.delete("/", formMiddleware, (req, res) => deleteForm(req, res));
 
@@ -33,3 +33,4 @@ formRouter.delete("/", formMiddleware, (req, res) => deleteForm(req, res));
 */
 module.exports = { formRouter };
 
+ 

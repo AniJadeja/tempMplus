@@ -19,9 +19,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // User Libraries
-const { getConnection } = require("@database");
+const { getConnection, connectToDatabase } = require("@database");
 
-const { FORMS_DATABASE } = require("@config");
+const { FORMS_DATABASE, FORMS_DATABASE_URI, } = require("@config");
 
 // User Schema
 const formSchema = new Schema({
@@ -39,12 +39,14 @@ const formSchema = new Schema({
 });
 
 
-module.exports = () => {
+module.exports = async () => {
+
+    await connectToDatabase(FORMS_DATABASE_URI, FORMS_DATABASE);
     // connection
-    const FormssConnection = getConnection(FORMS_DATABASE);
+    const FormsConnection = getConnection(FORMS_DATABASE);
 
     // User Model
-    const Form = FormssConnection.model('Form', formSchema);
+    const Form = FormsConnection.model('Form', formSchema);
 
     return Form;
 };
