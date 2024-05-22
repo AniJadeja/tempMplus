@@ -19,9 +19,10 @@
 const express = require('express');
 const router = express.Router();
 const {loginUser} = require('../controller');
+const {authenticate} = require('../middlewares');
 
 // Router
-const loginRouter = router.post("/", (req,res,)=> loginUser(req,res));
+const loginRouter = router.post("/", authenticate , (req,res,)=> loginUser(req,res));
 
 
 /*
