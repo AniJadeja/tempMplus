@@ -17,8 +17,6 @@
 
 const { ErrorX } = require("@utils");
 
-const checkEmail = require("@services/checkEmail");
-
 /*
  * Function authenticates the user by verifying the token
  * signature
@@ -30,15 +28,7 @@ const checkEmail = require("@services/checkEmail");
 const authenticate = (req, res, next) => {
   try {
     // Get the token from the header
-    const { email, password } = req.body;
-
-    // check if email is valid and provided
-    const emailResponse = checkEmail(email);
-
-    if (!emailResponse) {
-      throw new ErrorX(400, "Invalid email");
-    }
-
+    const { password } = req.body;
     // check if password is valid and provided
 
     if (!password) {
@@ -47,11 +37,11 @@ const authenticate = (req, res, next) => {
 
     // check if the password is valid
 
-    const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    // const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
-    if (!passwordPattern.test(password)) {
-      throw new ErrorX(400, "Invalid password");
-    }
+    // if (!passwordPattern.test(password)) {
+    //   throw new ErrorX(400, "Invalid password");
+    // }
 
     // If the token is valid, then call the next middleware
     next();

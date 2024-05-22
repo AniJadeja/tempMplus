@@ -30,21 +30,30 @@ const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
  * @returns {Boolean} isValid
  */
 
-const checkEmail = (email) => {
-  // check if the email meets the email pattern
-  if (!emailPattern.test(email)) {
-    throw new ErrorX(400, "Invalid email");
+const checkEmail = (req, res, next) => {
+  try {
+    // check if the email meets the email pattern
+    const { email } = req.body;
+
+    if (!emailPattern.test(email)) {
+      throw new ErrorX(400, "Invalid email");
+    }
+
+    // check if the email domain is valid
+    const domain = email.split("@")[1];
+
+    if (!emailDomains.includes(domain)) {
+      throw new ErrorX(400, "Invalid email domain");
+    }
+
+    console.log(`server => services => checkEmail => Email ${email} is valid`);
+    next();
+  } catch (error) {
+    error instanceof ErrorX
+      ? res.status(error.code).json({ error: error.message })
+      : // If the token is invalid, then send an error response
+        res.status(500).json({ error: "Bad Request" });
   }
-
-  // check if the email domain is valid
-  const domain = email.split("@")[1];
-
-  if (!emailDomains.includes(domain)) {
-    throw new ErrorX(400, "Invalid email domain");
-  }
-
-  console.log(`server => services => checkEmail => Email ${email} is valid`);
-  return true;
 };
 
-module.exports = checkEmail;
+module.exports = { checkEmail };
