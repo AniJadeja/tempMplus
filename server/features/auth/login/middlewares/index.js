@@ -17,7 +17,7 @@
 
 const { ErrorX } = require("@utils");
 
-const emailDomains = ["gmail.com", "yahoo.com", "hotmail.com", "outlook.com" ];
+const checkEmail = require("@services/checkEmail");
 
 /*
  * Function authenticates the user by verifying the token
@@ -32,22 +32,11 @@ const authenticate = (req, res, next) => {
     // Get the token from the header
     const { email, password } = req.body;
 
-    // check if the email meets the email pattern
-    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    // check if email is valid and provided
+    const emailResponse = checkEmail(email);
 
-    if (!email) {
-      throw new ErrorX(400, "Email is required");
-    }
-
-    if (!emailPattern.test(email)) {
+    if (!emailResponse) {
       throw new ErrorX(400, "Invalid email");
-    }
-
-    // check if the email domain is valid
-    const domain = email.split("@")[1];
-
-    if (!emailDomains.includes(domain)) {
-      throw new ErrorX(400, "Invalid email domain");
     }
 
     // check if password is valid and provided
