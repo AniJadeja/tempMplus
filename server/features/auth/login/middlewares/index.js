@@ -66,4 +66,4 @@ const authenticate = (req, res, next) => {
 /*
  * Export the middleware
  */
-module.exports = authenticate;
+module.exports = { authenticate };
