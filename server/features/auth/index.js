@@ -26,15 +26,12 @@ const { loginEndPoint } = require('@config')
 const { signupRouter } = require('./signup/Route');
 const { signupEndPoint } = require('@config')
 
-const { verifyEmailPattern } = require('./signup/middlewares'); 
+const { checkEmail } = require('@services/checkEmail');
 
 // Router
-const authRouter = router.use(loginEndPoint, (req, res, next) => {
-    console.log("Middleware before login user");
-    next();
-}, loginRouter);
+const authRouter = router.use(loginEndPoint, checkEmail, loginRouter);
 
-router.use(signupEndPoint, verifyEmailPattern ,signupRouter);
+router.use(signupEndPoint, checkEmail ,signupRouter);
 /*
 * Export the router
 */
