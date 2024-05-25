@@ -18,7 +18,7 @@
 // Libraries
 
 const { getFormModel } = require("../model/form");
-const { ErrorX } = require("@utils");
+const ErrorX  = require("@utils");
 /*
  * The function is used to create a new form
  * @param {Object} form
