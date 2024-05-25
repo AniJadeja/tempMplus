@@ -22,11 +22,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // User Libraries
-// const { getConnection } = require("@database");
-
-// const { USERS_DATABASE } = require("@config");
-
-
 const { connectToDatabase, getConnection } = require("@database");
 const { USERS_DATABASE, USERS_DATABASE_URI } = require("@config");
 
