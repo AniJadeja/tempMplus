@@ -16,7 +16,7 @@
  */
 
 // Libraries
-const { login } = require("./user");
+const { login } = require("./loginUserMethods");
 
 /*
 * Export the function

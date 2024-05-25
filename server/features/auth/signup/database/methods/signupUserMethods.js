@@ -22,9 +22,7 @@
 */
 
 // Libraries
-const getUserModel  = require("@features/auth/database/model/user");
-let User ;
-(async () => { User = await getUserModel() })();
+const { getUserModel } = require("@features/auth/database/model/user");
 const { UserModel } = require("../../model");
 const bcrypt = require("bcrypt");
 
@@ -41,6 +39,7 @@ const saltRounds = 10;
 * @returns {Object} response
 */
 const signup = async (userEmail, password) => {
+  console.log("signup => Imported User : ",getUserModel());
   try {
     console.log("signup => ",userEmail);
     // Check if the email exists
@@ -50,15 +49,15 @@ const signup = async (userEmail, password) => {
 
     console.log("signup => ",userModel);
 
-    const user = await User.findOne({ email: userEmail });
+    const user = await getUserModel().findOne({ email: userEmail });
     if (user) throw new ErrorX(400, "User already exists");
 
     // Create a new user
-    const newUser = await User.create(userModel);
+    const newUser = await getUserModel().create(userModel);
     if (!newUser) throw new ErrorX(400, "User not created");
 
     // Check if the user was actually created
-    const existingUser = await User.findOne({ email: userEmail });
+    const existingUser = await getUserModel().findOne({ email: userEmail });
     if (!existingUser) throw new ErrorX(400, "User not created");
 
     // Return the response

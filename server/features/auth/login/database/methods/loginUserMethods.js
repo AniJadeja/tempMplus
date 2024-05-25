@@ -22,9 +22,7 @@
 */
 
 // Libraries
-const getUserModel = require("@features/auth/database/model/user");
-let User ;
-(async () => { User = await getUserModel() })();
+const { getUserModel } = require("@features/auth/database/model/user");
 const bcrypt = require("bcrypt");
 
 // server modules
@@ -40,7 +38,7 @@ const { ErrorX } = require("@utils");
 const login = async (userEmail, password) => {
   try {
     // Check if the email exists
-    const retrivedUser = await User.findOne ({ email: userEmail });
+    const retrivedUser = await getUserModel().findOne ({ email: userEmail });
     if (!retrivedUser) {
       throw new Error("User not found");
     }

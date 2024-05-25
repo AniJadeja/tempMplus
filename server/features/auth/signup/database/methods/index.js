@@ -16,7 +16,7 @@
  */
 
 // Libraries
-const { signup } = require("./user");
+const { signup } = require("./signupUserMethods");
 
 /*
 * Export the function
