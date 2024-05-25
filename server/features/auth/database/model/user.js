@@ -61,12 +61,15 @@ const connectToUserDatabase = async () => {
   return User;
 };
 
-const setUserModel = (user) => {
-  this.User = user;
+const setUserModel = (userModel) => {
+  User = userModel;
+  console.log(
+    "server => features => auth => database => model => user : User model set..."
+  );
 };
 
 const getUserModel = () => {
-  return this.User;
+  return User;
 };
 
 /*
