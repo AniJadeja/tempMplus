@@ -1,5 +1,5 @@
 /*
- * ./server/features/signup/database/model/index.js
+ * ./server/features/auth/database/index.js
  *
  * Copyright (C) 2024 Aniruddhsinh Jadeja - All Rights  Reserved
  * You may use and modify the code to support the needs of Mplus
@@ -14,12 +14,14 @@
  * Version 1.0.0.0
  * @application MPlus
  */
-
-// Libraries
-const { connectToUserDatabase, setUserModel, getUserModel } = require("./user");
+const {
+  connectToUserDatabase,
+  setUserModel,
+  getUserModel,
+} = require("./model");
 
 /*
- * Export the model
+ * Export the model methods
  */
 module.exports = {
   connectToUserDatabase,
