@@ -24,11 +24,22 @@ const {
 
 // UserLibraries
 const { connectToDatabase } = require("@database");
+const {
+  connectToUserDatabase,
+  setUserModel,
+  getUserModel,
+} = require("@features/auth");
 
 const connectDB = async () => {
   try {
-    // Connect to the users database 
-    await connectToDatabase(USERS_DATABASE_URI, USERS_DATABASE);
+    // Connect to the users database
+    const userModel = await connectToUserDatabase(USERS_DATABASE_URI, USERS_DATABASE);
+    setUserModel(userModel);
+    const user = getUserModel();
+    if (!user) {
+      console.error("User Database connection failed...");
+      process.exit(1);
+    }
     // Connect to the forms database
     await connectToDatabase(FORMS_DATABASE_URI, FORMS_DATABASE);
   } catch (error) {
