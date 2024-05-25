@@ -17,11 +17,7 @@
 
 // Libraries
 
-const getFormModel = require("@features/form/database/model/form");
-let Form;
-(async () => {
-  Form = await getFormModel();
-})();
+const { getFormModel } = require("../model/form");
 const { ErrorX } = require("@utils");
 /*
  * The function is used to create a new form
@@ -32,16 +28,16 @@ const { ErrorX } = require("@utils");
 const createForm = async (form) => {
   try {
     // Check if the form exists
-    const isFormExist = await Form.findOne({ formName: form.formName });
+    const isFormExist = await getFormModel().findOne({ formName: form.formName });
     if (isFormExist) throw new ErrorX(400, "Form already exists");
 
     // Create a new form
-    const newForm = await Form.create(form);
+    const newForm = await getFormModel().create(form);
 
     if (!newForm) throw new ErrorX(400, "Form not created");
 
     // Check if the form was actually created
-    const existingForm = await Form.findOne({ formName: form.formName });
+    const existingForm = await getFormModel().findOne({ formName: form.formName });
     if (!existingForm) throw new ErrorX(400, "Form not created");
 
     // Return the response
@@ -66,7 +62,7 @@ const getForm = async (formName) => {
   try {
     // Check if the form exists
     console.log("Finding form : ", formName);
-    const isFormExist = await Form.findOne({ formName: formName });
+    const isFormExist = await getFormModel().findOne({ formName: formName });
     if (!isFormExist) throw new ErrorX(400, "Form does not exist");
 
     // Return the response

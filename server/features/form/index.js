@@ -18,8 +18,9 @@
 
 // Libraries
 const { formRouter } = require('./route');
+const { connectToFormDatabase, setFormModel, getFormModel } = require('./database');
 
 /*
 * Export the router
 */
-module.exports = { formRouter };
+module.exports = { formRouter, connectToFormDatabase, setFormModel, getFormModel };

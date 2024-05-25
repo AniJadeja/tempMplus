@@ -38,15 +38,31 @@ const formSchema = new Schema({
     metadata:{type : Object, default: {}}
 });
 
-
-module.exports = async () => {
-
+const connectToFormDatabase = async () => {
+    // Ensure the database connection is established before getting the connection
     await connectToDatabase(FORMS_DATABASE_URI, FORMS_DATABASE);
-    // connection
+
     const FormsConnection = getConnection(FORMS_DATABASE);
 
-    // User Model
-    const Form = FormsConnection.model('Form', formSchema);
+    if (!FormsConnection) {
+        throw new Error("Failed to establish a connection to the FORMS_DATABASE");
+    }
+
+    const Form = FormsConnection.model("Form", formSchema);
 
     return Form;
+}
+
+const setFormModel = (formModel) => {
+    Form = formModel;
+};
+
+const getFormModel = () => {
+    return Form;
+}
+
+module.exports = {
+    connectToFormDatabase,
+    setFormModel,
+    getFormModel,
 };
