@@ -19,13 +19,13 @@
 const express = require('express');
 const { newForm, getRequestedForm } = require('../controller');
 const formRouter = express.Router();
-const { formMiddleware } = require('../middlewares');
+const { verifyToken } = require('../middlewares');
 
 // Routes
-formRouter.get("/", formMiddleware, (req, res) => getRequestedForm(req, res));
-formRouter.post("/", formMiddleware, (req, res) => newForm(req, res));
-formRouter.put("/", formMiddleware, (req, res) => updateForm(req, res));
-formRouter.delete("/", formMiddleware, (req, res) => deleteForm(req, res));
+formRouter.get("/", (req, res) => getRequestedForm(req, res));
+formRouter.post("/", verifyToken, (req, res) => newForm(req, res));
+formRouter.put("/", verifyToken, (req, res) => updateForm(req, res));
+formRouter.delete("/", verifyToken, (req, res) => deleteForm(req, res));
 
 
 /*

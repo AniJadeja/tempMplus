@@ -17,21 +17,42 @@
 
 // Libraries
 const services = require("@services");
-const utils = require("@utils");
-const ErrorX = utils.ErrorX;
-
-const formMiddleware = async (req, res, next) => {
-    try {
-        next();
-    } catch (error) {
-        next(error);
-    }
-}
+const ErrorX = require("@utils");
 
 /*
-* Export the functions
-*/
+ * Verify the token and authenticate the user
+ * @param {object} req - The request object
+ */
+const verifyToken = async (req, res, next) => {
+  try {
+    // Get the token from the header and throw an error if the token is not found
+    const authorization = req.header("Authorization").replace("Bearer ", "");
+    if (!authorization) throw new ErrorX(401, "Token not found");
+
+    // Authenticate the token and throw an error if the token is invalid
+    const response = await services.authenticate(authorization);
+    if (!response) throw new ErrorX(401, "Invalid token");
+
+    // If the token is valid, then set the user data in the request object
+    next();
+  } catch (error) {
+    if (
+      error.message == "Cannot read properties of undefined (reading 'replace')"
+    ) {
+      res.status(401).json({ error: "Token not found" });
+      return;
+    }
+    console.log("Error in verifyToken => ", error);
+    if (error instanceof ErrorX)
+      res.status(error.code).json({ error: error.message });
+    // If there is an error, then send the error response
+    else res.status(500).json({ error: "Something went wrong." });
+  }
+};
+
+/*
+ * Export the functions
+ */
 module.exports = {
- 
-    formMiddleware
+  verifyToken,
 };
